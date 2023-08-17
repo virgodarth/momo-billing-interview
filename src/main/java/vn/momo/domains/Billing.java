@@ -15,6 +15,8 @@ public class Billing {
     private Instant dueDate;
     private Integer amount;
 
+    public Billing(){}
+
     public Billing(Integer id, String provider, BillingType type, BillingState state, Instant dueDate, Integer amount) {
         this.id = id;
         this.provider = provider;

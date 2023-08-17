@@ -30,7 +30,7 @@ public class UserFacadeTest {
         User userResponse = userFacade.depositBalance(100);
 
         // Then
-        Assertions.assertEquals(user.getId(), userResponse.getBalance());
+        Assertions.assertEquals(user.getId(), userResponse.getId());
     }
 
     @Test

@@ -11,15 +11,16 @@ import static org.mockito.Mockito.when;
 
 public class UserRepositoryTest {
     private final User mockedUser;
+    private final UserRepository userRepository;
 
     public UserRepositoryTest() {
         this.mockedUser = mock(User.class);
+        this.userRepository = new UserRepository();
     }
 
     @Test
-    public void givenUserReflection_whenGetUser_thenReturnUser_True() throws NoSuchFieldException, IllegalAccessException {
+    public void givenUserReflection_whenGetUser_thenReturnUser() throws NoSuchFieldException, IllegalAccessException {
         // Given
-        UserRepository userRepository = new UserRepository();
         Class<?> repositoryClass = UserRepository.class;
         Field field = repositoryClass.getDeclaredField("user");
         field.setAccessible(true);
@@ -37,12 +38,11 @@ public class UserRepositoryTest {
     }
 
     @Test
-    public void givenUser_whenUpdateUser_thenReturnUpdatedUser_True() {
+    public void givenUser_whenUpdateUser_thenReturnUpdatedUser() {
         // Given
-        UserRepository userRepository = new UserRepository();
+        User userRequest = new User(2, "Tester 2", 1993);
 
         // When
-        User userRequest = new User(2, "Tester 2", 1993);
         User updatedUser = userRepository.save(userRequest);
 
         // Then

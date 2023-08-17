@@ -6,6 +6,7 @@ import org.mockito.ArgumentCaptor;
 import vn.momo.domains.User;
 import vn.momo.repositories.UserRepository;
 
+import static org.junit.Assert.assertThrows;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -19,7 +20,7 @@ public class UserServiceTest {
     }
 
     @Test
-    public void givenUser_whenDepositAmount_thenUserAmountIncreasement_True() {
+    public void givenUser_whenDepositAmount_thenUserAmountIncreasement() {
         // Given
         int initAmount = 1993;
         int depositAmount = 200;
@@ -38,7 +39,7 @@ public class UserServiceTest {
     }
 
     @Test
-    public void givenUser_whenSubtractAmount_thenUserAmountDescreasement_True() {
+    public void givenUser_whenSubtractAmount_thenUserAmountDescreasement() {
         // Given
         int initAmount = 1993;
         int depositAmount = 200;
@@ -54,5 +55,19 @@ public class UserServiceTest {
 
         // Then
         Assertions.assertEquals(initAmount - depositAmount, userResponse.getBalance());
+    }
+
+    @Test
+    public void givenUser_whenSubtractAmountWhichUserBalanceNotEnough_thenThrowException(){
+        // Given
+        User user = new User(1, "Vu Mai", 1000);
+
+        // When
+        when(mockedUserRepository.getUser()).thenReturn(user);
+
+        // Then
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> userService.subtractBalance(2000));
     }
 }
